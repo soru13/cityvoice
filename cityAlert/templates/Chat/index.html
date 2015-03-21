@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block titulo %}Chat{% endblock titulo %}
+{% block MenuIzqClaseMsn %}class="active"{% endblock %}
+{% block TituloMenu %}mensajeria{% endblock %}
+{% block head %}
+<style type="text/css">
+.usuarios li a{
+  text-decoration: none;
+  cursor: pointer;
+}
+</style>
+{% endblock head %}
+{% block url %}   {% endblock %}
+
+{% block contenido %} 
+<table class="table table-striped" id="tabla">
+<h3 style="display:inline-block;">Mensajes</h3>
+  <thead>
+    <tr>
+      <th><h5>Mesanje</h5></th>
+      <th><h5>Actividad</h5></th>
+      <th><h5>Envio</h5></th>
+      <th><h5>Responder</h5></th>
+    </Tr>
+  </Thead>
+  <tbody>   
+    
+    {% for mensaje in inbox %}
+  <tr id="{{mensaje.id}}">
+     <td>{{mensaje.Mensaje|safe}}</td>
+     <td>{{mensaje.Actividad}}</td>
+     <td>{{mensaje.Envio}}</td>
+     <td><a href="ResponderNotificacion/{{mensaje.Actividad.id}}/{{mensaje.Envio.id}}" onclick=""><img src="{{STATIC_URL}}base/img/email-32 .ico"></a></td>
+  </Tr>
+  {% empty %}
+    <tr><td colspan="4">no hay ningun mensaje Pendiente</td></tr>
+  {% endfor %}
+    
+  </Tbody>
+</Table>
+
+{% endblock contenido %} 
+{% block piePagina %}
+<script src="{{STATIC_URL}}Chat/js/main.js"></script>
+{% endblock piePagina %}

@@ -1,0 +1,95 @@
+var ajax=(function($){
+    function started(){
+        $("#map-page").on("pagecreate", function() {           
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    locationSuccess,locationError,
+                    {enableHighAccuracy: true });
+            }
+        });
+       /* $(document).on('click', '[data-role="navbar"] a', function () {
+            $.mobile.changePage($(this).attr("data-href"), {
+                transition: "none",
+                changeHash: false
+            });         
+            return false;
+        });*/
+    }
+    function takePhoto() {
+        var opts = { 
+            targetWidth: 300, 
+            targetHeight: 300, 
+            destinationType : Camera.DestinationType.FILE_URI
+        }
+    
+        navigator.camera.getPicture(function(imageURI) {
+                                        _photo_uri = imageURI;
+                                        $("#pic").attr("src",_photo_uri);
+                                    }, 
+                                    function(error){
+                                            $("#picinfo").html("error " + error.code);
+                                    }, opts)
+    }           
+
+    function locationSuccess(position){   
+        alert("si entro");      
+        var lat = position.coords.latitude;                     
+        var lng = position.coords.longitude;  
+        var position = new google.maps.LatLng(lat,lng);
+        $('#map-canvas').gmap({ 'center': new google.maps.LatLng(lat, lng), 'zoom': 13});
+        $('#map-canvas').gmap('addMarker', {'position': position}).click(function(){
+                 $('#map-canvas').gmap('openInfoWindow', {'content': 'Hello World! aqui puede ir una foto o que se yo'}, this);
+                 $('#map-canvas').gmap('getMap').panTo(position);
+        });              
+    }
+     function locationError(error) {
+        alert("no entro");      
+          $.mobile.loading( 'show', {
+                text: 'no es culpa tuya es nuestra intentalo conectado a internet',
+                textVisible: true,
+                theme: 'd'
+            });
+        $('#map-canvas').gmap({'zoom': 2});
+    }
+
+  return{
+    inicio:started
+  }
+              
+})(jQuery);
+
+(function() {
+    ajax.inicio();
+}).call(this);
+
+/*
+$( document ).on( "pageinit", "#map-page", function() {
+            var defaultLatLng = new google.maps.LatLng(34.0983425, -118.3267434);  // Default to Hollywood, CA when no geolocation support
+            if ( navigator.geolocation ) {
+                function success(pos) {
+                    // Location found, show map with these coordinates
+                    drawMap(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+                }
+                function fail(error) {
+                    drawMap(defaultLatLng);  // Failed to find location, show default map
+                }
+                // Find the users current position.  Cache the location for 5 minutes, timeout after 6 seconds
+                navigator.geolocation.getCurrentPosition(success, fail, {maximumAge: 500000, enableHighAccuracy:true, timeout: 6000});
+            } else {
+                drawMap(defaultLatLng);  // No geolocation support, show default map
+            }
+            function drawMap(latlng) {
+                var myOptions = {
+                    zoom: 10,
+                    center: latlng,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                var map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
+                // Add an overlay to the map of current lat/lng
+                var marker = new google.maps.Marker({
+                    position: latlng,
+                    map: map,
+                    title: "Greetings!"
+                });
+            }
+        });*/

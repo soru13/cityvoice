@@ -1,0 +1,59 @@
+{% extends 'base_form.html' %}
+{% comment %}Aqui van los comentarios{% endcomment %}
+{% block titulo %}Avances{% endblock titulo %}
+{% block MenuIzqClaseGestion %}class="active"{% endblock %}
+{% block TituloMenu %}avance{% endblock %}
+{% block contenido %}
+
+<div class="row-fluid">
+  <table class="table table-hover">
+  <thead>
+    <tr>
+      <th><h4>Avances</h4></th>
+      <th><h4>Fecha de Creación</h4></th>
+      <th><h4>Actividad</h4></th>
+      <th><h4>Estatus</h4></th>
+      <th><h4>Porcentaje</h4></th>
+    </Tr>
+  </Thead>
+  <tbody id="avance">
+ 
+    {% for actividad in Avance %}
+    <tr id="{{actividad.id}}">
+      <td>{{actividad.Avance|safe}}</td>
+     <td>{{actividad.Fecha}}</td>
+     <td>{{actividad.Actividad}}</td>
+      <td>
+        {% if actividad.Estatus %}
+      <img src="{{STATIC_URL}}base/img/check-mark-3-24.ico">
+      {% else %}
+      <img src="{{STATIC_URL}}base/img/x-mark-24.ico">
+      {% endif %}
+      </td>
+      <td>
+        <div class="progress progress-striped active">
+          <div class="bar" style="width: {{actividad.Points}}%;">{{actividad.Points}}%</div>
+        </div>
+      </td>
+  </Tr>
+  {% empty %}
+    <tr><td colspan="4">no hay ningun Avance</td></tr>
+  {% endfor %}
+    
+  </Tbody>
+</Table>
+<span id="actividad" style="display:block;">{{Activida.Actividad}}</span>
+
+</div><br>
+        <a href="#" class="btn btn-primary" name="{{id_Actividad}}" id="AgregarAvance">Agregar Avance</a>
+        <a href="{% url 'ControlActividades.views.Actividades' id_proyecto %}" class="btn btn-info"><img src="{{STATIC_URL}}base/img/undo-4-24.ico">atras</a>
+
+
+
+{% endblock contenido %}
+{% block valor %}AgregarAvance{% endblock valor %}
+{% block piePagina %}
+
+
+<script src="{{STATIC_URL}}GestionProyectos/js/main.js"></script>
+{% endblock piePagina %}

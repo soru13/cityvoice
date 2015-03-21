@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="{{STATIC_URL}}cityalert/css/reporte.css" />
+</head>
+<body>
+  <header>
+    <h1>citylAlert</h1>
+  </header>
+  <section>
+   
+    <center><div id="qrcode"></div></center>
+    <div id="CopyRight">
+      <h3>hola {{username}}</h3>
+      <p><b>tu amigo {{invitar}} nos pidio que te mandaramos esta aplicacion</b></p>
+    <span>Donde todo lo que pasa en tu ciudad en una sola aplicaion</span>
+    <hr>
+              Adsum® Software experiencie. Río San Lorenzo Ote. 39-A Col. Guadalupe C.P. 80220 Culiacán, Sinaloa, Mexico. Tel: + 52 (667) 716 1787 / 712 1639
+E-mail: info@adsum.com.mx 
+
+            </div>
+  </section>
+</body>
+<script src="{{STATIC_URL}}cityalert/vendor/jquery-1.11.0.min.js"></script>
+     <script src="{{STATIC_URL}}bower_components/jquery-qrcode/jquery.qrcode.min.js" type="text/javascript"></script>
+<script>
+
+$(function(){
+  $('#qrcode').qrcode("{{STATIC_URL}}cityAlert.apk");
+})
+</script>
+</html>

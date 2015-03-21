@@ -1,0 +1,209 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<title>Page Title</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="{{STATIC_URL}}cityalert/vendor/jquery.mobile-1.4.2.min.css" />
+</head>
+
+<body>
+	<!-- Start of firts page -->
+	<div data-role="page" id="inicio">
+		<div data-role="header" data-position="fixed">
+			<h1>INSTITUTO TECNOLOGICO DE CULIACAN</h1>
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#inicio" data-href="#inicio" class="ui-btn-active">CARRERA</a></li>
+					<li><a href="#CUENTA" data-href="#CUENTA">CUENTA</a></li>
+					<li><a href="#MAESTRO" data-href="#MAESTRO">MAESTRO</a></li>
+				</ul>
+			</div><!-- /navbar -->
+		</div><!-- /header -->
+
+		<div data-role="content">
+			<div class="result-count"></div>
+			<ul data-role="listview"  id="element_list" data-filter="true">
+				<li><a href="#reticula">Ing. Ambiental</a></li>
+				<li><a href="#reticula">Ing. Bioquimica</a></li>
+				<li><a href="#reticula">Ing. Electrica</a></li>
+				<li><a href="#reticula">Ing. Electronica</a></li>
+				<li><a href="#reticula">Ing. Energias Renovables</a></li>
+				<li><a href="#reticula">Ing. Industrial</a></li>
+				<li><a href="#reticula">Ing. Mecánica</a></li>
+				<li><a href="#reticula">Ing. Mecatronica</a></li>
+				<li><a href="#reticula">Ing. en Sistemas Computacionales</a></li>
+				<li><a href="#reticula">Ing. en Tecnologias de la Informacion y Comunicaciones</a></li>
+				<li><a href="#reticula">Lic. en Informatica</a></li>
+			</ul>
+		</div><!-- /content -->
+		<div data-role="footer"  data-position="fixed">	
+			<div data-role="popup" id="positionWindow">
+				<p>ESTOY CONFORME ACEPTO TODOS LOS DERECHOS....<p>
+			</div>
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#positionWindow" data-rel="popup" data-position-to="window"  data-theme="c"  >CONTRATO</a></li>
+					<li><a href="#REGISTRATE" data-theme="c">REGISTRATE</a></li>
+				</ul>
+			</div><!-- /navbar -->
+		</div><!-- /footer -->
+	</div><!-- /page -->
+	<!-- Start of reportar page -->
+	<div data-role="page" id="reticula">
+		<div data-role="header" data-position="fixed">
+			<a href="#inicio"  data-href="#inicio" data-role="button" data-theme="c"  data-icon="back" >back</a>
+			<h1>INSTITUTO TECNOLOGICO DE CULIACAN</h1>
+		</div><!-- /header -->
+		<div data-role="content">
+			<div class="result-count"></div>  
+			
+            <center><img id="examen" src="http://sa.dynns.com:8000/media/AvatarUser/jesusMurrieta.jpg" /></center>		
+		</div><!-- /content -->
+	</div><!-- /page -->
+
+	<!-- Start of thred page -->
+	<div data-role="page" id="REGISTRATE">
+
+		<div data-role="header" data-position="fixed">
+			<a href="#inicio" data-href="#inicio"   data-role="button" data-theme="c"  data-icon="back" >back</a>
+			<h1>INSTITUTO TECNOLOGICO DE CULIACAN</h1>
+		</div><!-- /header -->
+		<div data-role="content">
+			<div class="result-count"></div>            
+			<form action="form.php" method="post">
+				<div data-role="fieldcontain" class="ui-hide-label">
+					<label for="username">USUARIO:</label>
+					<input  data-mini="true" type="text" name="username" id="username" value="" placeholder="Username"/>
+				</div>
+				<div data-role="fieldcontain" class="ui-hide-label">
+					<label for="EDAD">EDAD:</label>
+					<input  data-mini="true" type="number" name="EDAD" id="EDAD" value="" placeholder="EDAD"/>
+				</div>
+				<div data-role="fieldcontain" class="ui-hide-label">
+					<label for="email">email:</label>
+					<input  data-mini="true" type="email" name="email" id="email" value="" placeholder="email"/>
+				</div>
+				<div data-role="fieldcontain" class="ui-hide-label">
+					<label for="maestro">maestro:</label>
+					<input  data-mini="true" type="text" name="maestro" id="maestro" value="" placeholder="maestro"/>
+				</div>
+				<div data-role="fieldcontain" class="ui-hide-label">
+					<label for="materia">materia:</label>
+					<input  data-mini="true" type="text" name="materia" id="materia" value="" placeholder="materia"/>
+				</div>
+				<select  data-mini="true" name="select-choice-0" id="select-choice-0">
+				<option value="0" disabled selected="selected">selecciona carrera</option>
+				   <option value="1">Ing. Ambiental</option>
+				   <option value="2">Ing. Bioquímica</option>
+				   <option value="3">Ing. Eléctrica</option>
+				   <option value="4">Ing. Electrónica</option>
+				   <option value="5">Ing. Energías Renovables</option>
+				   <option value="6">Ing. Industrial</option>
+				   <option value="7">Ing. Mecánica</option>
+				   <option value="8">Ing. Mecatrónica</option>
+				   <option value="9">Ing. en Sistemas Computacionales</option>
+				   <option value="10">Ing. en Tecnologías de la Información y Comunicaciones</option>
+				   <option value="11">Lic. en Informática</option>
+				</select>
+				<button  data-mini="true" type="button"class="ui-btn-active" onclick="ajax.takePhoto();">CAPTURAR EXAMEN</button>
+			</form>
+			<div id="picinfo"></div>
+            <center><img id="pic" /></center>	
+		</div><!-- /content -->
+	</div><!-- /page -->
+
+	<!-- Start of thred page -->
+	<div data-role="page" id="CUENTA">
+		<div data-role="header">
+			<h1>ADSUM</h1>
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#inicio" data-href="#inicio"  >CARRERA</a></li>
+					<li><a href="#CUENTA" data-href="#CUENTA"    class="ui-btn-active">CUENTA</a></li>
+					<li><a href="#MAESTRO" data-href="#MAESTRO"  >MAESTRO</a></li>
+				</ul>
+			</div><!-- /navbar -->
+		</div><!-- /header -->
+
+		<div data-role="content">	
+
+			<a href="#" data-href="#" id="twitter" class="ui-btn">twitter</a>
+			<a href="#" data-href="#" class="ui-btn">facebook</a>
+
+			<center>OR</center>	
+
+				<label for="text-basic">Usuario:</label>
+				<input type="text" name="text-basic" id="text-basic" value="">
+				<label for="password">Password:</label>
+				<input type="password" name="password" id="password" value="" autocomplete="off">
+				<a href="#bar" data-href="#bar" class="ui-btn">ingresar</a>
+		</div><!-- /content -->
+		<div data-role="footer"  data-position="fixed">
+			
+			<div data-role="popup" id="positionWindow2">
+				<p>ESTOY CONFORME ACEPTO TODOS LOS DERECHOS....<p>
+			</div>
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#positionWindow2" data-rel="popup" data-position-to="window"  data-theme="c"  >CONTRATO</a></li>
+					<li><a href="#REGISTRATE" data-theme="c">REGISTRATE</a></li>
+				</ul>
+			</div><!-- /navbar -->
+		</div><!-- /footer -->
+	</div><!-- /page -->
+
+
+
+
+
+	<script src="{{STATIC_URL}}cityalert/vendor/jquery-1.11.0.min.js"></script>
+	<script type="text/javascript">
+        $(document).bind("mobileinit", function(){
+          $.mobile.defaultPageTransition = 'none';
+          $.mobile.loader.prototype.options.text = "Cargando";
+          $.mobile.loader.prototype.options.textVisible = true;
+          $.mobile.loader.prototype.options.theme = "b";
+          $.mobile.loader.prototype.options.html = "";
+          $.mobile.orientationChangeEnabled = false;
+          $.mobile.pageLoadErrorMessage = "no es culpa tuya es nuestra intentalo conectado a internet";
+        });
+    </script>
+	<script src="{{STATIC_URL}}cityalert/vendor/jquery.mobile-1.4.2.min.js"></script>
+    <!--<script src="cordova.js"></script>-->
+    <script>
+    var ajax=(function($){
+	    var _photo_uri;
+
+	  
+	    function takePhoto(event) {
+	        var opts = { 
+	            quality : 50,
+	            encodingType: Camera.EncodingType.JPEG,
+	            targetWidth: 300, 
+	            targetHeight: 300, 
+	            destinationType : Camera.DestinationType.FILE_URI
+	        }
+	        
+	        navigator.camera.getPicture(function(imageURI) {
+
+	    
+	     
+	                                        _photo_uri = imageURI;
+	                                        $("#pic").attr("src",_photo_uri);
+	                                    }, 
+	                                    function(error){
+	                                            $("#picinfo").html("error " + error.code);
+	                                    }, opts)
+	    }              
+	  return{
+	    takePhoto:takePhoto,
+	  }
+	              
+	})(jQuery);
+
+	(function() {
+	   ajax.inicio();
+	}).call(this);
+    </script>
+</body>
+</html>

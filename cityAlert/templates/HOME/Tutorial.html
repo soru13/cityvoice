@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block titulo %}Tutorial | RobotPython{% endblock titulo %}
+{% block url %} /{% endblock %}
+{% block MenuIzqClaseTutorial %}class="active"{% endblock %}
+{% block urlRegresar %}/Configuracion           {% endblock %}
+{% block TituloMenu %}Tutorial{% endblock %}
+{% block head %}
+{% endblock head %}
+{% block contenido %}
+<div class="tabbable tabs-right">
+  <ul class="nav nav-tabs">
+    <li class="active">
+      <a href="#rA" data-toggle="tab">Identificar Errores</a>
+    </li>
+    <li>
+    <a href="#rC" data-toggle="tab">Section 3</a>
+    </li>
+   
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="rA">
+      <p>Para identificar los errores del RobotPython:</p>
+      <ul>
+        <li> Ir al menu y seleccionar Logx.</li>
+        <li> Te mostrara un cuadro como el siguiente.</li>
+      </ul>
+      <a href="#" class="thumbnail">
+        <img data-src="holder.js/260x120" alt="900x120" style="width: 900px; height: 120px;" src="{{STATIC_URL}}base/img/Guia/Error.png"/>
+      </a>
+      <li>Cuando es un Error 500 significa que es interno al sistema te lo mostrara en un logx en la siquiente ruta:</li>
+      <div class="well">
+        /sysx/progs/replicacion/logs
+      </div>
+
+    </div>
+    <div class="tab-pane " id="rC">
+      <p>I'm in Section B.</p>
+    </div>
+  </div>
+</div>
+{% endblock contenido %}
+{% block piePagina %}
+{% endblock piePagina %}

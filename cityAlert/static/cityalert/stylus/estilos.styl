@@ -1,0 +1,504 @@
+@import "normalize.styl"
+@import "emoticons.styl"
+@import "slider.styl"
+body 
+	font-family LilyUPC
+a:link   
+	text-decoration none
+.content
+	.result-count
+		color lightgray
+		height 3px
+	background white
+	width 100%
+	margin 0px
+	padding 0px
+	height auto
+#imagemapa,#imagePhoto
+	display inline-block
+	width 49%
+#photoPictureForm{
+	position: absolute;
+    left: 5%;
+    top: 5%;
+    display:none;
+}
+
+
+#map-page
+	width 100% 
+	height 83%
+	#map-canvas 
+		width 100%
+		margin 0px auto
+		height 82%
+		padding 0 
+	#pac-inputWrap
+		span 
+			margin-right 5%
+
+.imagen
+	width 100%
+	border 0px
+.pic 
+	display none
+	width 80px
+	height 60px
+	margin-left 17px
+/*.pic,#imagePhoto {
+	-webkit-transform: rotate(90deg);
+	-moz-transform: rotate(90deg);
+	rotation: 90deg;
+}*/
+
+#imageDetail,#imageComment
+	width 160px
+	height 70px
+
+.imagenchoque
+	width 400px
+	height 400px
+#imagen
+	text-align center
+.ImgenMapa
+	width 300px 
+	height 100px 
+.centrarText
+	padding 10px 0px 0px 20px
+	display block
+	color #6ae2bc	
+.activar
+	display inline-block
+	margin-left 16px
+	margin-right 10px
+.tamaño
+	font-size 38px
+	display inline-block
+	position relative
+	top -10px
+.caducacion
+	display inline-block
+	position relative
+	top -13px
+	margin-left 10px
+
+.diseable
+	background-color transparent
+
+
+#Notificaciones,#MisReportes,#configuracion
+	.alertas
+		color red
+		height 30px
+		text-align left
+		padding 2px 0px 1px 0px
+		.alerta
+			width 27px
+			height 27px
+	.element_list
+		margin 0px
+		margin-bottom 36px
+		.ui-btn-icon-right
+			background white
+		.ui-icon-carat-r
+			background white
+		.puntuacion
+			width 17px
+			height 12px
+			margin 0px 5px 0px 0px
+		.puntuacionStar
+			height 12px
+			padding 0px
+			float left
+			margin 0px
+			img 
+				width 12px
+				height 12px
+				margin 0px
+		.tipoCategoria
+			color #bab7b7
+			font-size 8px
+			margin-left 50px
+			height 7px
+			width 30px
+		.distancia
+			color #bab7b7
+			font-size 8px
+			height 7px
+			width 30px
+		h3
+			margin 0px
+			margin-left 50px
+			font-size 10px	
+			height 12px
+		p
+			margin 0px
+			margin-left 50px
+			font-size 8px	
+			height 12px
+			color #bab7b7
+			span
+				display block
+				position relative
+				float left
+				padding-top 1.5px
+				margin-right 15px
+		li,a
+			padding 0px
+			min-height 0px
+			height 35px
+		a
+			background white
+		img
+			float left
+			margin-left 11px
+			margin-bottom 0px
+			margin-top 3px
+			height 30px
+			width 30px
+
+#Emergencia
+	.content
+		.directions
+			font-size 11px
+		padding-top 2%
+		color lightgray
+	p
+		margin-top 0px
+	.header
+		span
+			color #a9aaad
+
+#Reportar,#ReportarEmergencia
+	.ui-input-text
+		margin 0px
+		height 60px
+		border-radius 0px
+	.ui-body-inherit
+		border-color transparent
+		border-bottom 1px solid lightgray
+	.ui-shadow-inset
+		-webkit-box-shadow none
+		box-shadow none
+#ReportarEmergencia
+	.imagen
+		margin-top 10px
+		
+.emergenciaimg
+	width 101px
+	height 101px
+
+.emergenciaRed p
+	color red
+
+.emergenciaYellow p
+	color gold
+#groupEmergencia 
+	overflow auto
+	a
+		width 35%
+		display inline-block
+
+#map_detail,#map_Comment
+	height 122px
+	margin 2px
+
+
+
+#Notificaciones,#map-page,#MisReportes,#configuracion,#Emergencia,#Reportar,#ReportarEmergencia,#detail,#Comment,#perfil,#AcercaDE
+	background white
+	color lightgray
+	text-align center
+	.controls
+		margin-top 16px
+	#pac-inputWrap 
+		display none
+		background-color #fff
+		padding 0 11px 0 13px
+		width 250px
+		height 80%
+		font-family Roboto
+		overflow: auto;
+		font-size 15px
+		font-weight 300
+		text-overflow: ellipsis
+	#Puntos
+		overflow auto
+		height 70%
+	#pac-input,#Cancelar,#Agregar
+		display none
+	#pac-input:focus 
+		border-color #4d90fe
+		margin-left -1px
+		padding-left 14px /* Regular padding-left + 1. */
+		width 250px
+	.header
+		background-color #00cb84
+		height 32px
+		color white
+		a
+			background-color transparent
+			height 32px
+			padding 5px 0px 0px 0px
+			color white
+		img
+			height 20px
+		.ui-btn
+			border-width 0px
+			
+	.footer
+		background-color #00cb84
+		.ui-btn
+			border-width 0px
+		a
+			background-color transparent
+			height 37px
+			padding 5px 0px 0px 0px
+			color white
+
+		.ui-btn-active
+			background-color white
+			color #00cb84
+
+		.ui-btn-active:after
+			background-color white
+			color #00cb84
+		img
+			height 37px
+#Reportar,#ReportarEmergencia
+	.content
+		.directions
+			font-size 11px
+		text-align left
+		h3
+			color darkgray
+		#compartir
+			margin-left 15px
+			color dimgray
+			span
+				margin-right 33px
+
+		.compartir
+			width 64px
+			height 18px
+			margin-right 22px
+
+
+		#takeFoto 
+			width 87px
+			height 101px
+
+		.ui-btn
+			height 25px
+			border 1px solid springgreen
+			background-color white
+			color springgreen
+			font-weight 0px
+			float right
+			margin-right 30px
+		.ui-corner-all
+			border-radius 0px
+		span
+			color #a9aaad	
+#perfil
+	.wrap
+		span
+			color black
+		margin 20px
+		text-align left
+		#gridfirst
+			.ui-block-b
+				font-size 11px
+				margin-bottom 2px
+				border 1px solid black
+				color black
+		.ui-block-a
+			a
+				color black
+				text-decoration none
+		.compartir
+			margin-top 16px
+			width 75px
+			height 15px
+	.cuadrosTexto
+		width 200px
+		height 24px
+		display inline-block
+.categoria
+	p
+		color dimgray
+		padding 0px
+		margin 0px
+	.grouṕcate
+		width 25%
+		height 60px
+		text-align center
+		display inline-block
+	.grouṕSubcate
+		width 25%
+		height 60px
+		text-align center
+		display inline-block
+		//display none
+	.iconCategoria
+		width 42px
+		height 42px
+		text-align center
+
+#Comment,#detail
+
+		
+	text-align left
+	h3
+		margin 0px
+		padding 0px
+	.comentarios
+		color gray
+		span
+			margin-right 3px
+			color black
+	#startEnd
+		float right
+		margin-right 5%
+	#ratyStart
+		img
+			margin 0px 5%
+	.puntuacion
+		width 17px
+		height 12px
+		margin 0px 3px 0px 0px
+		display inline-block
+	.margin
+		width 95%
+		margin 0px auto
+	.result-count
+		display inline-block
+
+.contenedorcomment
+	width 95%
+	height 42px
+	margin 0px auto
+	margin-top 15px
+	margin-bottom 10px
+	p
+		color dimgray
+		width 90%
+		height 10px
+		padding 0px
+		margin 0px
+		position relative
+		float left
+	.grouṕcate
+		color black
+		position relative
+		float left
+		width 90%
+		height 15px
+	.grouṕSubcate
+		position relative
+		height 10px
+		float left
+		//display none
+	.iconCategoria
+		position relative
+		width 10%
+		height 42px
+		float left
+#takeFoto
+	width 52px
+	height 61px
+	margin-left 15px
+	margin-bottom 18px
+
+#slider
+	background #00cb84
+	color white
+	text-align center
+	h1
+		font-size 16px
+		margin 50px 0px 50px 0px
+	p
+		font-size 12px
+		margin 0px 0px 25px 0px
+	#pointSlider
+		position relative
+		width 85px
+		height 15px
+		margin 0px 0px 100px 0px
+	#flechaIzq
+		width 20px
+		height 30px
+	span
+		margin 0px
+		padding 0px
+		font-size 26px
+#login
+	background #00cb84
+	color white
+	text-align center
+	h1
+		font-size 16px
+		margin 1% 0px 41px 0px
+	h2
+		font-size 16px
+		margin 1% 0px 48px 0px
+	#fb-connect
+		width 168px
+		height 59px
+		background #00cb84
+		padding 0px
+		margin auto
+		margin-bottom 1%
+		background-repeat no-repeat
+	#tw-connect
+		width 136px
+		height 37px
+		background #00cb84
+		margin auto
+		margin-bottom 1%
+		background-repeat no-repeat
+
+	#usuario
+		position relative
+		display block
+		width 149px
+		height 28px
+	#loginForm
+		.ui-input-text
+			width 149px
+			height 28px
+			display inline-block
+
+	
+
+	#Usuariotext
+		padding-right 30px
+	#Password
+		padding-right 12px
+	#signUp
+		color white
+		width 149px
+		height 28px
+		display inline-block
+		background #00cb84
+	#ingresar
+		.ui-btn
+			color white
+			width 149px
+			height 28px
+			display inline-block
+			background #00cb84
+
+/*#note
+	display none
+	color dimgray
+.info,.bool
+	color dimgray*/
+		
+#imagenEmergencia
+	width 100px
+	height 100px
+	margin-left 21px
+	margin-top 2%
+		
+

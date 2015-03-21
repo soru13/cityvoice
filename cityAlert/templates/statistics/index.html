@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block titulo %}estadisticas{% endblock titulo %}
+{% block MenuIzqClaseEstasitic %}class="active"{% endblock %}
+{% block TituloMenu %}estadisticas{% endblock %}
+{% block head %}
+<style type="text/css">#mimapa {
+  position: relative;
+  height: 350px;
+  top: 0;
+  width: 100%;
+}</style>
+{% endblock head %}
+
+{% block contenido %}
+<!--Load the AJAX API-->
+    <div id="usuarios_14_dias" style="display:inline-block;vertical-align: top;"></div>
+ <!--Div that will hold the pie chart-->
+    <div id="chart_div" style="display:inline-block;vertical-align: top;"></div>
+     <div id="mimapa"></div>
+{% endblock contenido %}
+{% block piePagina %}
+<script type="text/javascript" src="http://www.google.com/jsapi?key={{ GOOGLE_API_KEY }}"></script>
+<script type="text/javascript">
+    google.load("visualization", "1", {packages:["corechart"]});
+    google.setOnLoadCallback(function() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Día');
+        data.addColumn('number', 'Nuevas Actividades');
+        data.addRows({{ users_stats|length }});
+        {% for s in users_stats %}  
+            data.setValue({{ forloop.counter0 }}, 0, '{{ s.0|date:"d M" }}');
+            data.setValue({{ forloop.counter0 }}, 1, {{ s.1 }});
+        {% endfor %}
+
+        var chart = new google.visualization.LineChart(document.getElementById('usuarios_14_dias'));
+        chart.draw(data, {width: 620, height: 200, legend:'none'});
+    });
+</script>
+  
+ <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+
+      // Load the Visualization API and the piechart package.
+      google.load('visualization', '1.0', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.setOnLoadCallback(drawChart);
+
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Topping');
+        data.addColumn('number', 'Slices');
+        data.addRows([
+          ['Actividades', {{actividades}}],
+          ['Proyectos', {{proyectos}}],
+          ['Cancelaciones', {{cancelaciones}}],
+        ]);
+
+        // Set chart options
+        var options = {'title':'GRAFICA DE PASTEL',
+                       'width':400,
+                       'height':300};
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+   
+<script src="{{STATIC_URL}}statistics/js/main.js"></script>
+{% endblock piePagina %}

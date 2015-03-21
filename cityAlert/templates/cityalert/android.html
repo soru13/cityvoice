@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="{{STATIC_URL}}cityalert/css/reporte.css" />
+  <link rel="stylesheet" href="{{STATIC_URL}}bower_components/raty/lib/jquery.raty.css">
+</head>
+<body>
+  <header>
+    <h1>citylAlert</h1>
+  </header>
+  <section>
+   
+     <center>  <div id="qrcode"></div><span><a href="/home/soru/adsumDeploy/cityAlert/static/cityAlert.apk">Cityalert</a></span></center>
+  </section>
+</body>
+<script src="{{STATIC_URL}}cityalert/vendor/jquery-1.11.0.min.js"></script>
+     <script src="{{STATIC_URL}}bower_components/jquery-qrcode/jquery.qrcode.min.js" type="text/javascript"></script>
+<script>
+$(function(){
+  $('#qrcode').qrcode("{{STATIC_URL}}cityAlert.apk");
+})
+</script>
+</html>

@@ -1,0 +1,18 @@
+{% extends 'base_form.html' %}
+{% block titulo %}reset pass{% endblock titulo %}
+{% block url %}/{% endblock %}
+{% block urlRegresar %}    /Usuarios           {% endblock %}
+{% block MenuIzqClaseUsuario %}class="active"{% endblock %}
+{% block TituloMenu %}rescribir password{% endblock %}
+{% block inputs %} 
+
+                <input type="password" name="password" placeholder="password" title="password" required="True" maxlength='40' autofocus="True">
+                <input type="password" name="confirm_password" title="repetir password" required="True" maxlength='40' placeholder="repetir password">
+
+
+{% endblock %}
+{% block valor %}Reset Password {% endblock valor %}
+{% block piePagina %}
+<script type="text/javascript">
+$("#allformulario").show();</script>
+{% endblock piePagina %}

@@ -1,0 +1,78 @@
+{% extends 'base_form.html' %}
+{% comment %}Aqui van los comentarios{% endcomment %}
+{% block titulo %}Proyectos{% endblock titulo %}
+{% block MenuIzqClaseGestion %}class="active"{% endblock %}
+{% block TituloMenu %}proyectos{% endblock %}
+
+{% block contenido %}
+
+<div class="row-fluid">
+	<table class="table table-striped" id="tabla">
+    {% if login.is_staff %}
+<form action="{% url 'ControlActividades.views.filter' %}" style="display:inline-block;" method="post">{% csrf_token %}
+<select name="usuario"  title="por usuario" required="True">
+  <option></option>
+  {% for user in allusers %}
+  <option value="{{user.id}}" >{{user.username}}</option>
+  {% endfor %}
+</select>&nbsp;
+  <input type="submit" class="btn btn-success" style="vertical-align: top; "value="filtrar">
+</form>
+{% endif %}
+  <thead>
+    <tr>
+    <hgroup>
+      <th><h4>Proyecto</h4></th>
+      <th><h4>Usuario</h4></th>
+      <th><h4>Fecha</h4></th>
+      <th><h4>Estatus</h4></th>
+      <th><h4>View</h4></th>
+      {% if login.is_staff %}
+      <th><h5>Editar</h5></th>
+      <th><h5>Borrar</h5></th> {% endif %}
+    </hgroup>
+    </Tr>
+  </Thead>
+  <tbody>
+  	{% for proyecto in Proyectos %}
+  	<tr id="{{proyecto.id}}">
+		 <td>{{proyecto.Proyecto}}</td>
+     <td>{{proyecto.Usuario}}</td>
+     <td>{{proyecto.Fecha}}</td> 
+     <td>
+      {% if proyecto.Estatus %}
+      <img src="{{STATIC_URL}}base/img/check-mark-3-24.ico">
+      {% else %}
+      <img src="{{STATIC_URL}}base/img/x-mark-24.ico">
+      {% endif %}
+     </td>
+     <td><a href="{% url 'ControlActividades.views.Actividades' proyecto.id %}" title="Mostrar Actiidades">
+     <img src="{{STATIC_URL}}base/img/fullscreen-8-32.ico" /></a></td>
+      {% if perms.ControlActividades %}
+          {% if perms.ControlActividades.change_Proyectos %}
+            <td><a href="#" class="btn" onclick="javascript:ajax.EditarPro({{ proyecto.id }});" title="Editar Proyecto"><img src="{{STATIC_URL}}base/img/edit-9-24.ico"></a></td>
+          {% endif %}
+          {% if perms.ControlActividades.delete_Proyectos %}
+            <td><a href="#" onclick="javascript:ajax.EliminarPro({{ proyecto.id }});" class="btn btn-danger" title="Eliminar Proyecto"><img src="{{ STATIC_URL }}base/img/trash-can-16-24.ico"></a></td>
+          {% endif %}
+      {% endif %}
+	</Tr>
+	{% empty %}
+		<tr><td colspan="4">no hay ningun Proyecto</td></tr>
+	{% endfor %}
+    
+  </Tbody>
+</Table>
+</div>
+<br>
+{% if perms.ControlActividades %}
+    {% if perms.ControlActividades.add_Proyectos %}
+        <a href="{% url 'ControlActividades.views.AgregarProyecto' %}" class="btn btn-primary">Agregar Proyecto</a>
+    {% endif %}
+{% endif %}
+{% endblock contenido %}
+{% block valor %}Terminar{% endblock valor %}
+{% block piePagina %}
+<script src="{{STATIC_URL}}GestionProyectos/js/main.js"></script>
+
+{% endblock piePagina %}

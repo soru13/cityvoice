@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block formulario %}
+<form method='post' id="formulario" enctype="multipart/form-data">{% csrf_token %}
+                {{formulario.as_p}}
+                {{ user_form.as_p }}
+                {{ perfil_form.as_p }}
+                {% block inputs %} {% endblock %}
+                <input type='submit' id="boton" value='{% block valor %}{% endblock valor %}' title="Enviar"  class="btn btn-primary" />
+</form>
+<a href="{% block urlRegresar %}{% endblock %}" class="btn btn-success" id="exito">Regresar</a><br><br>
+<button type="button" class="btn btn-default" id="intentar" style="display:none;">Otra Vez</button><br><br>
+<div id="resultados"></div>
+<div id="porcentaje" style="display:none;">{{porcentaje}}</div>
+{% endblock formulario %}

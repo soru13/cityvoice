@@ -1,0 +1,217 @@
+{% extends 'base_form.html' %}
+{% block titulo %}Check Out{% endblock titulo %}
+{% block url %} /{% endblock %}
+{% block MenuIzqClaseGestionarStuff %}class="active"{% endblock %}
+{% block urlRegresar %}    /Configuracion           {% endblock %}
+{% block TituloMenu %}estatus{% endblock %}
+{% block head %}
+{% endblock head %}
+
+
+{% block contenido %}
+
+<div class="table-responsive">
+        <table class="table table-striped" id="tabla">
+          {% if login.is_staff %} &nbsp;
+              <form action="{% url 'Home.views.search' %}" style="display:inline-block;" method="post">{% csrf_token %}
+                <select name="estatus">
+                  <option value='PENDIENTES'>PENDIENTES</option>
+                  <option value='ATRAZADAS'>ATRAZADAS</option>
+                  <option value='TERMINADAS'>TERMINADAS</option>
+                  <option value='FINALIZADAS'>FINALIZADAS</option>
+                  <option value='TODAS'>TODAS</option>
+                </select>
+              <select name="usuario"  title="por usuario" required="True">
+                <option value='0'>TODOS</option>
+                {% for user in allusers %}
+                <option value="{{user.id}}" >{{user.username}}</option>
+                {% endfor %}
+              </select>
+              <input type="text" id="from" name="from" placeholder="Desde" />
+              <input type="text" id="to" name="to" placeholder="Hasta" />
+              &nbsp;
+                <input type="submit" class="btn btn-success" value="filtrar">
+              </form>
+        {% endif %}<br>
+
+      <h3 style="display:inline-block;">Actividades</h3>
+        <thead>
+          <tr>
+            <th><h5>Proyecto</h5></th>
+            <th><h5>Actividades</h5></th>
+            <th><h5>Inicia</h5></th>
+            <th><h5>Termina</h5></th>
+            <th><h5>Estatus</h5></th>
+            <th><h5>Detalles</h5></th>
+            <th><h5>Porcentaje</h5></th>
+            <th><h5>View</h5></th> 
+            {% if login.is_staff %}
+            <th><h5>Finalizar</h5></th>
+            <th><h5>Borrar</h5></th>{% endif %}
+          </Tr>
+        </Thead>
+        <tbody>   
+    
+        {% for actividad in Actividades %}
+        <tr id="{{actividad.id}}">
+         <td>{{actividad.Proyecto}}</td>
+         <td>{{actividad.Actividad}}</td>
+         <td>{{actividad.Desde}}</td>
+         <td>{{actividad.Hasta}}</td>
+         <td>
+           {% if actividad.Estatus %}
+          <img src="{{STATIC_URL}}base/img/check-mark-3-24.ico">
+          {% else %}
+          <img src="{{STATIC_URL}}base/img/x-mark-24.ico">
+          {% endif %}
+         </td>
+         <td><a href="#" onclick="javascript:ajax.ShowDetail({{ actividad.id }});"><img src="{{STATIC_URL}}base/img/notepad-5-32.ico"></a>
+            <div id="Detalles{{actividad.id}}" style="display:none;"><b>Quien labora esta actividad :</b>{{actividad.Usuario}}<br><b>Fecha de Solicitud: </b>{{actividad.FechaSolicitud}}<br><b>Solicitud: </b>{{actividad.Solicitud}}<br><b>Observacion: </b><br>{{actividad.Observaciones|safe }}</div>
+          </td>
+          <td>
+          {% for last in porcentaje %}
+              {% if last.Actividad == actividad %}
+                <div class="progress progress-striped active">
+                  <div class="bar" style="width: {{last.Points}}%;">{{last.Points}}%</div>
+                </div>
+                 {% endif %}
+            {% endfor %}
+          </td>
+           <td><a href="{% url 'Home.views.addActividades' actividad.id %}" title="Mostrar Avances">
+           <img src="{{STATIC_URL}}base/img/fullscreen-8-32.ico"></a></td>
+           {% if perms.ControlActividades %}
+                
+                {% if perms.ControlActividades.change_Actividad %}
+                  <td><a href="#" onclick="javascript:ajax.finalizarAct({{ actividad.id }});"  title="Finalizar Actividad" class="btn btn-danger"><img src="{{STATIC_URL}}base/img/check-box-2-24.ico"></a></td>
+                {% endif %}
+                {% if perms.ControlActividades.delete_Actividad %}
+                  <td><a href="#" onclick="javascript:ajax.EliminarAct({{ actividad.id }},'{{actividad.Actividad}}',{{login.id}});"  title="Borrar Actividad" class="btn btn-danger"><img src="{{STATIC_URL}}base/img/trash-can-16-24.ico"></a></td>
+                {% endif %}
+            {% else %}
+            {% endif %}
+         
+        </Tr>
+        {% empty %}
+          <tr><td colspan="4">no hay ninguna Actividad Pendiente</td></tr>
+        {% endfor %}
+          
+        </Tbody>
+      </Table>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped" id="tabla">
+  <h3>Actividades al 100%</h3>
+  <thead>
+    <tr>
+      <th><h5>Proyecto</h5></th>
+      <th><h5>Actividades</h5></th>
+      <th><h5>Inicia</h5></th>
+      <th><h5>Termina</h5></th>
+      <th><h5>Estatus</h5></th>
+      <th><h5>Usuario</h5></th>
+      <th><h5>Avances</h5></th>
+      {% if login.is_staff %}
+      <th><h5>Finalizar</h5></th>
+      <th><h5>Borrar</h5></th>{% endif %}
+    </Tr>
+  </Thead>
+  <tbody>
+        
+    {% for actividad in Actividades %}
+    {% if actividad.Finalizado%}
+      {% else %}
+      {% for last in porcentaje %}
+          {% if last.Actividad == actividad and last.Points == 100 %}
+    <tr id="{{actividad.id}}">
+     <td>{{actividad.Proyecto}}</td>
+     <td>{{actividad.Actividad}}</td>
+     
+     <td>{{actividad.Desde}}</td>
+     <td>{{actividad.Hasta}}</td>
+     <td>
+       {% if actividad.Estatus %}
+      <img src="{{STATIC_URL}}base/img/check-mark-3-24.ico">
+      {% else %}
+      <img src="{{STATIC_URL}}base/img/x-mark-24.ico">
+      {% endif %}
+     </td>
+     <td>{{actividad.Usuario}}</td>
+
+     <td><a href="{% url 'Home.views.addActividades' actividad.id %}" title="Mostrar Avances">
+     <img src="{{STATIC_URL}}base/img/fullscreen-8-32.ico"></a></td>
+     
+       {% if perms.ControlActividades %}
+          {% if perms.ControlActividades.change_Actividad %}
+            <td><a href="#" onclick="javascript:ajax.finalizarAct({{ actividad.id }});" title="Finalizar Actividad" class="btn btn-danger"><img src="{{STATIC_URL}}base/img/check-box-2-24.ico"></a></td>
+          {% endif %}
+          {% if perms.ControlActividades.delete_Actividad %}
+            <td><a href="#" onclick="javascript:ajax.EliminarAct({{ actividad.id }},'{{actividad.Actividad}}',{{login.id}});"  title="Borrar Actividad" class="btn btn-danger"><img src="{{STATIC_URL}}base/img/trash-can-16-24.ico"></a></td>
+          {% endif %}
+      {% endif %}
+     
+  </Tr>
+   {% endif %}
+    
+        {% endfor %}
+    {% endif %}         
+  {% empty %}
+    <tr><td colspan="4">no hay ninguna Actividad al 100%</td></tr>
+
+  {% endfor %}
+ 
+  </Tbody>
+</Table>
+</div>
+  <h3>Actividades Atrasadas </h3>
+  <div class="table-responsive">
+     <table class="table table-striped" id="tabla">
+      <thead>
+        <tr>
+          <th><h5>Proyecto</h5></th>
+          <th><h5>Actividades</h5></th>
+          <th><h5>Termina</h5></th>
+          <th><h5>Usuario</h5></th>
+          <th><h5>Tiempo transcurrido</h5></th>
+          <th><h5>Detalles</h5></th>
+          <th><h5>Avances</h5></th>
+           {% if login.is_staff %}
+          <th><h5>Notificar</h5></th>
+          {% endif %}
+        </Tr>
+      </Thead>
+      <tbody>   
+        {% for actividad in Actividades %}
+           {% if actividad.Finalizado %}
+           {% else %}
+           {% if actividad.Hasta < FechaActual %}
+        <tr id="{{actividad.id}}" class="error">
+         <td>{{actividad.Proyecto}}</td>
+         <td>{{actividad.Actividad}}</td>
+         <td>{{actividad.Hasta}}</td>
+         <td>{{actividad.Usuario}}</td>
+         <td><time class="timeago" datetime="{{actividad.Hasta}}"></time></td>
+         <td><a href="#" onclick="javascript:ajax.ShowDetail({{ actividad.id }});"><img src="{{STATIC_URL}}base/img/notepad-5-32.ico"></a>
+            <div id="Detalles{{actividad.id}}" style="display:none;"><b>Quien labora esta actividad :</b>{{actividad.Usuario}}<br><b>Fecha de Solicitud: </b>{{actividad.FechaSolicitud}}<br><b>Solicitud: </b>{{actividad.Solicitud}}<br><b>Observacion: </b><br>{{actividad.Observaciones|safe }}</div>
+          </td>
+         <td><a href="{% url 'Home.views.addActividades' actividad.id %}" title="Mostrar Avances">
+         <img src="{{STATIC_URL}}base/img/fullscreen-8-32.ico"></a></td>
+          {% if login.is_staff %}
+           <td><a href="{% url 'Chat.views.NuevaNotificacion' actividad.id %}" onclick=""><img src="{{STATIC_URL}}base/img/email-32 .ico"></a></td>
+          {% endif %}
+        </Tr>
+          {% endif %}
+         {% endif %}
+      {% empty %}
+        <tr><td colspan="4">no hay ninguna Actividad Atrazada</td></tr>
+      {% endfor %}
+      </Tbody>
+    </Table>
+  </div>
+{% endblock contenido %}
+{% block valor %}EliminarActiidad{% endblock valor %}
+{% block piePagina %}
+<script src="{{STATIC_URL}}GestionProyectos/js/main.js"></script>
+
+
+{% endblock piePagina %}

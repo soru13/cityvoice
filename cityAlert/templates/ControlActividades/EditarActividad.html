@@ -1,0 +1,10 @@
+{% extends 'base_form.html' %}
+{% block titulo %}Editar Actividad{% endblock titulo %}
+{% block MenuIzqClaseGestion %}class="active"{% endblock %}
+{% block valor %}TerminarAct{% endblock valor %}
+{% block TituloMenu %}}Editar Actividad{% endblock %}
+{% block piePagina %}
+<div id="idActividad">{{id_Actividad}}</div>
+<script type="text/javascript">$("#allformulario").show();</script>
+<script src="{{STATIC_URL}}GestionProyectos/js/main.js"></script>
+{% endblock piePagina %}

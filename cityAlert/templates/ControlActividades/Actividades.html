@@ -1,0 +1,85 @@
+{% extends 'base_form.html' %}
+{% comment %}Aqui van los comentarios{% endcomment %}
+{% block titulo %}Actividades{% endblock titulo %}
+{% block MenuIzqClaseGestion %}class="active"{% endblock %}
+{% block TituloMenu %}Actividades{% endblock %}
+{% block contenido %}
+	<table class="table table-striped" id="tabla">
+  <thead>
+    <tr>
+      <th><h5>Actividades</h5></th>
+      <th><h5>Proyecto</h5></th>
+      <th><h5>Inicia</h5></th>
+      <th><h5>Termina</h5></th>
+      <th><h5>Estatus</h5></th>
+      <th><h5>Detalles</h5></th>
+      <th><h5>Porcentaje</h5></th>
+      <th><h5>View</h5></th>
+       {% if login.is_staff %}
+      <th><h5>Editar</h5></th>
+      <th><h5>Finalizar</h5></th>
+      <th><h5>Borrar</h5></th>{% endif %}
+    </Tr>
+  </Thead>
+  <tbody>   
+  	{% for actividad in Actividades %}
+  	<tr id="{{actividad.id}}">
+		 <td>{{actividad.Actividad}}</td>
+     <td>{{actividad.Proyecto}}</td>
+     
+     <td>{{actividad.Desde}}</td>
+     <td>{{actividad.Hasta}}</td>
+     <td>
+       {% if actividad.Estatus %}
+      <img src="{{STATIC_URL}}base/img/check-mark-3-24.ico">
+      {% else %}
+      <img src="{{STATIC_URL}}base/img/x-mark-24.ico">
+      {% endif %}
+     </td>
+     <td><a href="#" onclick="javascript:ajax.ShowDetail({{ actividad.id }});"><img src="{{STATIC_URL}}base/img/notepad-5-32.ico"></a>
+        <div id="Detalles{{actividad.id}}" style="display:none;"><b>Quien labora esta actividad :</b>{{actividad.Usuario}}<br><b>Fecha de Solicitud: </b>{{actividad.FechaSolicitud}}<br><b>Solicitud: </b>{{actividad.Solicitud}}<br><b>Observacion: </b><br>{{actividad.Observaciones|safe }}</div>
+</td>
+    <td>
+        {% for last in porcentaje %}
+          {% if last.Actividad == actividad %}
+            <div class="progress progress-striped active">
+              <div class="bar" style="width: {{last.Points}}%;">{{last.Points}}%</div>
+            </div>
+          {% endif %}
+        {% endfor %}
+    </td>
+     <td><a href="/Avances/{{ actividad.id }}/{{id_proyecto}}" title="Mostrar Avances">
+     <img src="{{STATIC_URL}}base/img/fullscreen-8-32.ico"></a></td>
+      <td><a href="/EditarAct/{{actividad.id}}/{{id_proyecto}} " id="editarActividadModal" title="Editar Actividad"  class="btn"><img src="{{STATIC_URL}}base/img/edit-9-24.ico"></a></td>
+     {% if perms.ControlActividades %}
+          {% if perms.ControlActividades.change_Actividad %}
+            <td><a href="#" onclick="javascript:ajax.finalizarAct({{ actividad.id }});" title="Finalizar Actividad" class="btn btn-danger"><img src="{{STATIC_URL}}base/img/check-box-2-24.ico"></a></td>
+          {% endif %}
+          {% if perms.ControlActividades.delete_Actividad %}
+            <td><a href="#" onclick="javascript:ajax.EliminarAct({{ actividad.id }},'{{actividad.Actividad}}',{{login.id}});"  title="Borrar Actividad" class="btn btn-danger"><img src="{{STATIC_URL}}base/img/trash-can-16-24.ico"></a></td>
+          {% endif %}
+
+      {% else %}
+      {% endif %}
+		 
+	</Tr>
+	{% empty %}
+		<tr><td colspan="4">no hay ninguna Actividad</td></tr>
+	{% endfor %}
+    
+  </Tbody>
+</Table>
+
+
+
+
+
+
+        <a href="{% url 'ControlActividades.views.NuevaActividad' id_proyecto %}" class="btn btn-primary">Agregar Actividad</a>
+
+<a href="{% url 'ControlActividades.views.ControlActividades' %}" class="btn btn-info"><img src="{{STATIC_URL}}base/img/undo-4-24.ico">atras</a>
+{% endblock contenido %}
+{% block valor %}Cancelacion{% endblock valor %}
+{% block piePagina %}
+<script src="{{STATIC_URL}}GestionProyectos/js/main.js"></script>
+{% endblock piePagina %}

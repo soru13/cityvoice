@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js"><!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title id="titulo">{% block titulo %}{% endblock %}</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link href='{{STATIC_URL}}base/img/algo.jpg' rel='icon' type='image/x-icon'/>
+        <link rel="stylesheet" href="{{STATIC_URL}}bower_components/jqueryui/themes/base/minified/jquery-ui.min.css">
+        <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}bower_components/bootstrap-wysihtml5/src/bootstrap-wysihtml5.css"></link>
+        <link rel="stylesheet" href="{{STATIC_URL}}bower_components/bootstrap/dist/css/bootstrap.min.css">
+        
+        <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}base/css/base.css">
+        <script src="{{STATIC_URL}}bower_components/modernizr/modernizr.js"></script>
+                {% block head %}{% endblock %}
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+         <!--    -->
+        <section class="container-fluid">
+          <div id="menuResponsivo">
+                <header>
+                    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+                      <div class="container-fluid">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                          </button>
+                          <a class="navbar-brand" href="{% block url %}{% endblock %}" style="margin:0px 0px 0px 0px;font-size: 14px;"> <img  id="imgCentral" src="{{STATIC_URL}}base/img/Usuarios.png" />CityAlert</a>
+                        </div>
+
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                          <ul class="nav navbar-nav">
+                                <li>
+                                  {% if numberRegister == 0 %}
+                                  <a href="#" id="leido" role="button"  data-toggle="modal"><img src="{{STATIC_URL}}base/img/inbox-5-24.ico">{{numberRegister}} Notificaciones</a>
+                                  {% else %}
+                                  <a href="#" id="leido" role="button"  data-toggle="modal"><img src="{{STATIC_URL}}base/img/inbox-51-24.ico">{{numberRegister}} Notificaciones</a>
+                                  {% endif %} 
+                                </li>
+                                <li>
+                                  <a href="#" style=""><span class="icon-play" id="play" style="display:none;"></span><span class="icon-stop" id="stop" style="display:none;"></span></a>
+                                </li>
+                                {% if login.is_superuser %}
+                                  <li><a href="{{STATIC_URL}}base/img/mis_modelos.png">UML BASE DE DATOS</a></li>
+                                {% endif %}
+                                  <li><a href="" id="Fullscreen" title="click para ver en pantalla completa"><img src="{{STATIC_URL}}base/img/fullscreen-12-24.ico"></a></li>
+                          </ul>
+                          <ul class="nav navbar-nav navbar-right">
+                            <li class="picture" >
+                                  <figure >
+                                        <img  id="pictureUsuario" src="{{MEDIA_URL}}{{perfilUer.avatar}}" />
+                                        <figcaption>
+                                        </figcaption>
+                                  </figure>
+                            </li>
+                            <li><a href="" id="userlogin" title="{{login.id}}">{{login.username}}</a></li>
+                            <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Configuración <b class="caret"></b></a>
+                              <ul class="dropdown-menu">
+                                  <li><a href="/EditarPerfilLogin/" ><i class="icon-user"></i> Editar Perfil</a></li>
+                                  <li><a href="/resetPassword" ><i class="icon-refresh"></i> Reset Password</a></li>
+                                  <li><a href="/cerrar" ><i class="icon-off"></i> Cerrar Session</a></li>
+                              </ul>
+                            </li>
+                          </ul>
+                        </div><!-- /.navbar-collapse -->
+                      </div><!-- /.container-fluid -->
+                    </nav>
+                </header><br><br><br>
+          </div>
+             <div class="row">
+                <div class="col-md-10 col-md-push-2">
+                    {% block contenido %}{% endblock %}
+
+                    <div id="allformulario" style="display: none; text-align: center;">
+                         {% block formulario %}{% endblock %}
+
+                    </div>
+                </div>
+                <div class="col-md-2 col-md-pull-10">
+                    <ul class="nav nav-pills nav-stacked navbar-static-top">
+                      <li class="nav-header">{% block TituloMenu %}{% endblock %}</li>
+                            <li {% block MenuIzqClaseGestion %}{% endblock %}><a href="/ControlActividades" ><i class="glyphicon glyphicon-th-list"></i> ControlActividades</a></li>
+                            
+                            <li {% block MenuIzqClaseMsn %}{% endblock %}><a href="/Chat" ><i class="glyphicon glyphicon-envelope"></i> Mensajeria</a></li>
+                            <li {% block MenuIzqClaseEstasitic %}{% endblock %}><a href="/estadisticas" ><i class="glyphicon glyphicon-indent-left"></i> Estadisticas</a></li>
+                            <li {% block MenuIzqClaseReporteria %}{% endblock %}><a href="/Reporteria" ><i class="glyphicon glyphicon-print"></i> Reporteria</a></li>
+
+                            {% if login.is_staff%}
+                            <li {% block MenuIzqClaseUsuario %}{% endblock %}><a href="/Usuarios" ><i class="glyphicon glyphicon-user"></i> Usuarios</a></li>
+                            {% endif %}
+
+
+                            <li {% block MenuIzqClaseAPI %}{% endblock %}><a href="/Developers" ><i class="glyphicon glyphicon-glass"></i> Developers API</a></li>
+
+                            <li {% block MenuIzqClaseDiapositiva %}{% endblock %}><a href="/Diapositiva" ><i class="glyphicon glyphicon-picture"></i> Diapositiva</a></li>
+                            <li {% block MenuIzqClaseStreaming %}{% endblock %}><a href="/live" ><i class="glyphicon glyphicon-facetime-video"></i> Streaming</a></li>
+                            <li class="divider"></li>
+                            <li style="background-color:#f7f7f7;"><center><a href="#Autores" id="Credit" data-toggle="modal">CREDITOS</a></center></li>
+                      </ul><br>
+                               {% block atras %}{% endblock %}<br>
+                               <a href="#" id="Notificacion" class="btn btn-info btn-xs" ><i class="glyphicon glyphicon-bullhorn"></i> show Notification</a><br><br>
+                               <a href="{{STATIC_URL}}cityAlert.apk" class="btn btn-primary btn-xs" >CITYALERT</a><br><br>
+                           <div id="usuariosCon">
+                              <header>
+                                <b>Usuarios Conectados</h2>
+                              </header>
+                              <ul id="users"></ul>
+                            </div
+              
+                </div>
+              </div>
+        </section>
+        <footer>
+          <!-- Modal -->
+          <div class="modal fade" id="Autores" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h3 class="modal-title" id="myModalLabel">ESTOS SON LOS CREADORES<img src="{{STATIC_URL}}base/img/emoticon-29-32 .ico"></h3>
+                </div>
+                <div class="modal-body">
+                  JESUS EDUARDO MURRIETA ROSAS ALIAS: BERSERKER "DEVELOPER"
+                </div>
+                <div class="modal-footer">
+                   "se merecen un gran aplauso vayan corran a darselo."
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Modal -->
+          <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title" id="myModalLabel">Notificaciones</h3>
+                  </div>
+                  <div class="modal-body">
+                          <p>
+                            <table class="table table-hover">
+                              <thead>
+                                <tr>
+                                  <th>Descripcion</th>
+                                  <th>Envio</th>
+                                  <th>Tipo</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {% for mensaje in notificacion %}
+                              
+                                <tr>
+                                  <td>{{mensaje.Descripcion|safe}}</td>
+                                  <td>{{mensaje.Envio}}</td>
+                                  <td>{{mensaje.Tipo}}</td>
+                                </tr>
+                             {% empty %}
+                                <tr><td colspan="4">no hay ninguna Notificacion por el momento</td></tr>
+                              {% endfor %}
+                                
+                              </tbody>
+                            </table>
+                          </p>
+                  </div>
+                  <div class="modal-footer">
+                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="inbox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 id="myModalLabel">mensaje</h3>
+                  </div>
+                  <div class="modal-body">
+                    ...
+                  </div>
+                </div>
+              </div>
+            </div>
+            <script src="{{STATIC_URL}}bower_components/bootstrap-wysihtml5/lib/js/wysihtml5-0.3.0.min.js"></script>
+            <script src="{{STATIC_URL}}bower_components/jquery/dist/jquery.min.js"></script>
+            <script src="http://sa.dynns.com:3000/socket.io/socket.io.js"></script>
+            <script src="{{STATIC_URL}}bower_components/jquery-timeago/jquery.timeago.js" type="text/javascript"></script>
+            <script src="{{STATIC_URL}}bower_components/jquery-timeago/locales/jquery.timeago.es.js" type="text/javascript"></script>
+            <script type="text/javascript" src="{{STATIC_URL}}bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+            <script src="{{STATIC_URL}}bower_components/bootstrap-wysihtml5/src/bootstrap-wysihtml5.js"></script>
+            <script src="{{STATIC_URL}}bower_components/jqueryui/ui/minified/jquery-ui.min.js"></script>
+            <script src="{{STATIC_URL}}bower_components/jqueryui/ui/minified/i18n/jquery.ui.datepicker-es.min.js" type="text/javascript"></script>
+            <script src="{{STATIC_URL}}bower_components/jquery-cookie/jquery.cookie.js"></script>
+            <script src="{{STATIC_URL}}base/js/base.js"></script>
+            <script type="text/javascript">
+              $.ajaxSetup({
+                beforeSend: function(xhr) {
+                  xhr.setRequestHeader('X-CSRFToken', $.cookie('csrftoken'));
+                }
+              });
+            
+            </script>
+
+
+
+
+            {% block piePagina %}{% endblock %}
+        </footer>
+      
+    </body>
+</html>

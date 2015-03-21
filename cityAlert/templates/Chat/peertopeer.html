@@ -1,0 +1,58 @@
+{% extends 'base_form.html' %}
+{% block titulo %}Nueva Notificacion{% endblock titulo %}
+{% block TituloMenu %}notificación{% endblock %}
+{% block url %} /{% endblock %}
+{% block contenido %} 
+<section id="miChat">
+      <div id="chat" style="height:300px;overflow: auto;">
+        <div id="chatInsite"/>
+
+         {% for mensaje in inbox %}
+
+         <p><article>
+          <figure class="usuarioIMG" >
+                  <img src="{{MEDIA_URL}}{{mensaje.avatar.avatar}}" />
+                  <figcaption>
+                  </figcaption>
+            </figure>
+
+          <span>{{mensaje.Envio}}</span> :{{mensaje.Mensaje|safe}}</article></p>
+
+         {% empty %}
+      
+        {% endfor %}
+      </div>
+</section>
+<span id="perfilid" style="display:none;">{{perfilUer.id}}</span>
+<span id="SokedID" title="" style="display:none;"></span>
+<span id="User" style="display:none;">{{Recivio.id}}</span>
+
+Estas Hablando Con: <span id="User" style="text-decoration: underline;"> {{Recivio.username}}</span>
+<span id="UserLoginId" style="display:none;">{{login.id}}</span>
+<div id="emoticon">
+<a class="emoticon" title=":)" href="#"></a>
+<a class="emoticon" title=":8" href="#"></a>
+<a class="emoticon" title=":D" href="#"></a>
+<a class="emoticon" title=":hat" href="#"></a>
+<a class="emoticon" title=":(" href="#"></a>
+<a class="emoticon" title=":rare" href="#"></a>
+<a class="emoticon" title=":silent" href="#"></a>
+<a class="emoticon" title=":lol" href="#"></a>
+<a class="emoticon" title=":shame" href="#"></a>
+<a class="emoticon" title=":xD" href="#"></a>
+<a class="emoticon" title=":imp" href="#"></a>
+<a class="emoticon" title=":O" href="#"></a>
+<a class="emoticon" title=":secret" href="#"></a>
+<a class="emoticon" title=":P" href="#"></a>
+<a class="emoticon" title=":a" href="#"></a>
+<a class="emoticon" title=":cool:" href="#"></a>
+<a class="emoticon" title=":XD:" href="#"></a>
+<a class="emoticon" title=":sor:" href="#"></a>
+<a class="emoticon" title=":'(" href="#"></a>
+<a class="emoticon" title=":|" href="#"></a>
+</div>
+{% endblock contenido %}
+{% block valor %}Enviar Mensaje{% endblock valor %}
+{% block piePagina %}
+<script src="{{STATIC_URL}}Chat/js/main.js"></script>
+{% endblock piePagina %}

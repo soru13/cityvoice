@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% comment %}Aqui van los comentarios{% endcomment %}
+{% block titulo %}Usuarios{% endblock titulo %}
+{% block url %}/{% endblock %}
+{% block TituloMenu %}usuarios{% endblock %}
+{% block MenuIzqClaseUsuario %}class="active"{% endblock %}
+
+
+
+{% block contenido %}
+	<table class="table table-hover">
+  <thead>
+    <tr>
+      <th><h4>Avatar</h4></th>
+      <th><h4>Usuario</h4></th>
+      <th><h4>staff</h4></th>
+      <th><h4>activo</h4></th>
+      <th><h4>SuperUsuario</h4></th>
+      <th><h4>LastLogin</h4></th>
+      <th><h4>Creacion</h4></th>
+      <th></th>
+    </Tr>
+  </Thead>
+  <tbody>
+  	{% for usuario in usuarios %}
+        
+  	<tr id="{{usuario.id}}">
+    {% for perfiles in perfilesUsers %}
+            {% if perfiles.user_id == usuario.id %}
+             <td><img src="{{MEDIA_URL}}{{perfiles.avatar}}" class="img-circle" style="width:50px;height:50px;"></td>
+            {% endif %}
+    {% endfor %}
+		 <td>{{usuario.username}}</td>
+		 <!--<td>{{usuario.first_name}}</td>
+     <td>{{usuario.last_name}}</td>
+     <td>{{usuario.email}}</td>-->
+     <td>
+      {% if usuario.is_staff %}
+      <img src="{{STATIC_URL}}/base/img/check-mark-3-24.ico">
+      {% else %}
+      <img src="{{STATIC_URL}}/base/img/x-mark-24.ico">
+      {% endif %}
+      </td> 
+     <td>
+      {% if usuario.is_active %}
+      <img src="{{STATIC_URL}}/base/img/check-mark-3-24.ico">
+      {% else %}
+      <img src="{{STATIC_URL}}/base/img/x-mark-24.ico">
+      {% endif %}
+      </td>
+     <td>
+      {% if usuario.is_superuser %}
+      <img src="{{STATIC_URL}}/base/img/check-mark-3-24.ico">
+      {% else %}
+      <img src="{{STATIC_URL}}/base/img/x-mark-24.ico">
+      {% endif %}
+      </td>
+     <td>{{usuario.last_login}}</td>
+     <td>{{usuario.date_joined}}</td>
+     <td>
+      <strong id="item{{usuario.id}}" data-original-title="PERMISOS" data-content="{{usuario.get_all_permissions}}{{usuario.get_full_name}}<br>{{usuario.email}}" onmouseover="javascript:ajax.mostrar({{usuario.id}});"> pasa por encima </strong>
+      </td>
+     <!--<td>{{usuario.get_all_permissions}}</td>-->
+     <td>
+
+      
+       {% if perms.Usuarios %}
+          {% if perms.Usuarios.change_Perfil %}
+              <a href="/EditarUsuario/{{usuario.id}}" class="btn">Editar</a></td><td>
+          {% endif %}
+          {% if perms.Usuarios.delete_Perfil %}
+              <a href="/borrarUsuario/{{usuario.id}}" class="btn btn-danger">Eliminar</a>
+          {% endif %}
+      {% else %}
+          <p>usted no tiene permiso para hacer algo en usuarios</p>
+      {% endif %}
+     </td>
+	</Tr>
+	{% empty %}
+		<tr><td colspan="4">no hay ningun usuario</td></tr>
+	{% endfor %}
+   
+  </Tbody>
+</Table>
+
+
+{% if perms.auth %}
+    {% if perms.auth.add_user %}
+        <a href="/NuevoUsuario" class="btn btn-primary">Agregar Usuario</a>
+    {% endif %}
+{% else %}
+ <p>no tiene permiso para agregar usuarios</p>
+{% endif %}
+
+{% endblock contenido %}
+{% block piePagina %}
+<script src="{{STATIC_URL}}/usuarios/js/main.js"></script>
+{% endblock piePagina %}
